@@ -1,7 +1,6 @@
 import React from 'react';
 import {
     View,
-    Text,
     Image,
     TouchableOpacity,
     StyleSheet,
@@ -15,14 +14,18 @@ export default function Header(){
     return(
         <View style={styles.container}>
             <TouchableOpacity>
-                <Feather name='menu' size={36} color='#ffff'/>
+                <Feather 
+                    name='menu' 
+                    size={32} 
+                    color='#ffff'
+                />
             </TouchableOpacity>
 
             <View style={styles.actions}>
                 <TouchableOpacity>
                     <Feather 
                         name='search'
-                        size={32} 
+                        size={28} 
                         color='#ffff'
                     />
                 </TouchableOpacity>
@@ -30,7 +33,7 @@ export default function Header(){
                 <TouchableOpacity>
                     <Ionicons 
                         name="md-notifications" 
-                        size={32} 
+                        size={28} 
                         color='#ffff' 
                     />
                 </TouchableOpacity>
@@ -56,9 +59,9 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     profileImage:{
-        width: 48,
-        height: 48,
-        borderRadius: 24,
+        width: 44,
+        height: 44,
+        borderRadius: 22,
     },
 
 });

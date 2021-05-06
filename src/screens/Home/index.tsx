@@ -8,7 +8,8 @@ import {
 
 import colors from '../../styles/colors';
 import Header from '../../components/Header';
-import MovieCard from '../../components/MovieCard';
+import MovieCardPrimary from '../../components/MovieCardPrimary';
+import MovieCardSegundary from '../../components/MovieCardSegundary';
 
 const data = [
     {
@@ -40,13 +41,13 @@ export default function Home(){
             <ScrollView 
                 showsVerticalScrollIndicator={false}
             >
-                <MovieCard 
+                <MovieCardPrimary
                     title='Trailers'
                 />
-                <MovieCard 
+                <MovieCardSegundary
                     title='Now in Cinemas'
                 />
-                <MovieCard 
+                <MovieCardSegundary
                     title='Coming soon'
                 />
                 

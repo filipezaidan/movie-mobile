@@ -5,40 +5,43 @@ import {
     Image,
     FlatList,
     StyleSheet,
-} from 'react-native';
-
+ } from 'react-native';
 import colors from '../../styles/colors';
 import fonts from '../../styles/fonts';
 
-interface MovieCardProps{
+interface MovieCardSegundaryProps{
     title: string;
-    data?: [Object];
 }
 
-const data = [
+const data= [
     {
         key: 1,
+        name: 'Os Vigadores',
         img: require('../../assets/01.jpg')
     },
     {
         key: 2, 
+        name: 'Os Vigadores',
         img: require('../../assets/02.jpg')
     },
     {
         key: 3,
+        name: 'Os Vigadores',
         img: require('../../assets/03.jpg')
     },
     {
         key: 4,
+        name: 'Os Vigadores',
         img: require('../../assets/04.jpg')
     },
     {
         key: 5,
+        name: 'Os Vigadores',
         img: require('../../assets/05.jpg')
     }
 ]
 
-export default function MovieCard({ title }: MovieCardProps){
+export default function MovieCardSegundary({ title } : MovieCardSegundaryProps){
     return(
         <View style={styles.container}>
             <View style={styles.text}>
@@ -50,7 +53,16 @@ export default function MovieCard({ title }: MovieCardProps){
                 <FlatList
                     data={data}
                     keyExtractor={ item => String(item.key)}
-                    renderItem={ ({item}) => <Image style={styles.image}  source={item.img}/> }
+                    renderItem={ ({item}) => (
+                        <View>
+                            <Image 
+                                style={styles.image}  
+                                source={item.img}
+                            />
+
+                            <Text style={styles.titleMovie}>{item.name}</Text>
+                        </View>
+                        )}
                     horizontal
                     showsHorizontalScrollIndicator={false}
                 />
@@ -61,23 +73,19 @@ export default function MovieCard({ title }: MovieCardProps){
 
 const styles = StyleSheet.create({
     container: {
-        marginTop: 10,
+        marginTop: 15,
         marginBottom: 0,
-
     },
     text: {
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'baseline',
         paddingHorizontal: 25,
-        
-        
     },
     title:{
         fontFamily: fonts.heading,
-        fontSize: 25,
+        fontSize: 23,
         color: colors.white,
-        
     },
     subtitle: {
         fontFamily: fonts.complement,
@@ -88,10 +96,17 @@ const styles = StyleSheet.create({
         paddingLeft: 30
     },
     image: { 
-        width: 300,
+        width: 140,
         height: 200,
         marginRight: 20,
         borderRadius: 12,
         marginTop: 20
+    },
+    titleMovie:{
+        fontSize: 16,
+        fontFamily: fonts.text,
+        color: colors.white,
+        marginTop: 10,
+        
     }
 });

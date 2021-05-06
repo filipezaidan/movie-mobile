@@ -5,7 +5,10 @@ import {
     Image,
     FlatList,
     StyleSheet,
+    TouchableOpacity,
  } from 'react-native';
+import { useNavigation } from '@react-navigation/native'
+
 import colors from '../../styles/colors';
 import fonts from '../../styles/fonts';
 
@@ -13,7 +16,14 @@ interface MovieCardSegundaryProps{
     title: string;
 }
 
-const data= [
+interface MovieProps{
+    key: number;
+    name: string;
+    img: string;
+}
+
+
+const data : MovieProps[]= [
     {
         key: 1,
         name: 'Os Vigadores',
@@ -21,7 +31,7 @@ const data= [
     },
     {
         key: 2, 
-        name: 'Os Vigadores',
+        name: 'Os Vigadores 2',
         img: require('../../assets/02.jpg')
     },
     {
@@ -42,6 +52,12 @@ const data= [
 ]
 
 export default function MovieCardSegundary({ title } : MovieCardSegundaryProps){
+    const navigation = useNavigation();
+
+    function handleSelectMovie(movie: MovieProps){
+        navigation.navigate('Details', { movie })
+    }
+
     return(
         <View style={styles.container}>
             <View style={styles.text}>
@@ -54,14 +70,16 @@ export default function MovieCardSegundary({ title } : MovieCardSegundaryProps){
                     data={data}
                     keyExtractor={ item => String(item.key)}
                     renderItem={ ({item}) => (
-                        <View>
-                            <Image 
-                                style={styles.image}  
+                        <TouchableOpacity
+                            onPress={() => handleSelectMovie(item)}
+                        >
+                            <Image
+                                style={styles.image}
                                 source={item.img}
                             />
 
                             <Text style={styles.titleMovie}>{item.name}</Text>
-                        </View>
+                        </TouchableOpacity>
                         )}
                     horizontal
                     showsHorizontalScrollIndicator={false}

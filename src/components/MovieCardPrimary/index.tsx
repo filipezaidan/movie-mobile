@@ -63,21 +63,17 @@ const styles = StyleSheet.create({
     container: {
         marginTop: 10,
         marginBottom: 0,
-
     },
     text: {
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'baseline',
-        paddingHorizontal: 25,
-        
-        
+        paddingHorizontal: 25,      
     },
     title:{
         fontFamily: fonts.heading,
         fontSize: 23,
-        color: colors.white,
-        
+        color: colors.white, 
     },
     subtitle: {
         fontFamily: fonts.complement,

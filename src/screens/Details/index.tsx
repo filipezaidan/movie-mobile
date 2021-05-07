@@ -3,17 +3,15 @@ import {
     View,
     Text,
     StyleSheet,
-    Image,
     SafeAreaView,
     Platform,
-    TouchableOpacity,
     ImageBackground, 
+    ScrollView,
 } from 'react-native';
 import { useRoute } from '@react-navigation/native'
 
 import colors from '../../styles/colors';
 import fonts from '../../styles/fonts';
-import { color } from 'react-native-reanimated';
 import Button from '../../components/Button';
 
 interface MovieProps{
@@ -36,14 +34,13 @@ export default function Details({}){
             <ImageBackground
                 source={movie.img}
                 style={styles.movieImage}
-                blurRadius={0.2}
+                blurRadius={2}
             >
                 <View style={styles.movieContainer}>
                     <View style={styles.movieInfo}>
                         <Text style={styles.movieTitle}>
                             {movie.name}
                         </Text>
-
                     </View>
                 </View>
 
@@ -60,10 +57,7 @@ export default function Details({}){
                         </Text>
                     </View>
                     <Button/>
-
                 </View>
-
-
             </ImageBackground>
         </SafeAreaView>
     );
@@ -80,7 +74,7 @@ const styles = StyleSheet.create({
     movieContainer: {
         flex: 1,
         alignItems: 'center',
-        backgroundColor: 'rgba(0,0,0,0.4)'
+        backgroundColor: 'rgba(0,0,0,0.4)',
     },
     movieInfo: {
         marginTop: '55%'
@@ -108,13 +102,12 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         fontFamily: fonts.heading,
         color: colors.white,
-        marginBottom: 15
+        marginBottom: 15,
     },
     aboutDescription: {
         fontSize: 19,
         color: colors.white,
         fontFamily: fonts.complement,
-        textAlign: 'justify'
-
+        textAlign: 'justify',
     },
 });

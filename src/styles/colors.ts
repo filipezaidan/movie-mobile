@@ -3,5 +3,5 @@ export default {
     gray_dark: '#383443',
     gray: '#7F8085',
     yellow: '#ffb800',
-    white: '#F9F9F9',
+    white: '#FFFF',
   };

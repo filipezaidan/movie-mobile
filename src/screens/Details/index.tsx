@@ -14,6 +14,7 @@ import { useRoute } from '@react-navigation/native'
 import colors from '../../styles/colors';
 import fonts from '../../styles/fonts';
 import { color } from 'react-native-reanimated';
+import Button from '../../components/Button';
 
 interface MovieProps{
     key: number;
@@ -58,9 +59,7 @@ export default function Details({}){
                             A porro voluptatum nulla fugiat sunt sit veritatis.
                         </Text>
                     </View>
-                    <TouchableOpacity style={styles.buyButton}>
-                        <Text>Buy Ticket</Text>
-                    </TouchableOpacity>
+                    <Button/>
 
                 </View>
 
@@ -91,7 +90,7 @@ const styles = StyleSheet.create({
         fontSize: 28,
         textAlign: 'center',
         color: colors.white,
-        fontFamily: fonts.heading
+        fontFamily: fonts.heading,
     },
     movieAbout: {
         flex: 1,
@@ -101,30 +100,21 @@ const styles = StyleSheet.create({
         paddingHorizontal: 10,
     },
     aboutText: {
-        marginTop: 40
+        marginTop: 40,
+        paddingHorizontal: 3,
     },
     aboutTitle:{
         fontSize: 24,
         textAlign: 'center',
         fontFamily: fonts.heading,
         color: colors.white,
-        marginBottom: 10
+        marginBottom: 15
     },
     aboutDescription: {
-        fontSize: 22,
+        fontSize: 19,
         color: colors.white,
         fontFamily: fonts.complement,
-        textAlign: 'center'
-    },
-    buyButton: {
-        width: 250,
-        height: 55,
-        borderRadius: 5,
-        backgroundColor: '#FFB800',
-        alignItems: 'center',
-        justifyContent: 'center',
-        marginBottom: 15,
-    }
+        textAlign: 'justify'
 
-    
+    },
 });

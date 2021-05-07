@@ -3,13 +3,18 @@ import React from 'react';
 import AppLoading from 'expo-app-loading';
 import Routes from './src/routes';
 
-import {useFonts, Roboto_400Regular, Roboto_700Bold, Roboto_500Medium } from '@expo-google-fonts/roboto';
+import {
+  useFonts,
+  Rubik_400Regular,
+  Rubik_500Medium,
+  Rubik_700Bold,
+} from '@expo-google-fonts/rubik';
 
 export default function App() {
   const [fontsLoaded] = useFonts({
-    Roboto_400Regular,
-    Roboto_500Medium,
-    Roboto_700Bold
+    Rubik_400Regular,
+    Rubik_500Medium,
+    Rubik_700Bold
   })
 
   if(!fontsLoaded){

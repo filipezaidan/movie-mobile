@@ -2,7 +2,7 @@ import React from 'react';
 import {
     View,
     Text,
-    Image,
+    ImageBackground,
     FlatList,
     StyleSheet,
 } from 'react-native';
@@ -50,7 +50,7 @@ export default function MovieCardPrimary({ title }: MovieCardPropsPrimary){
                 <FlatList
                     data={data}
                     keyExtractor={ item => String(item.key)}
-                    renderItem={ ({item}) => <Image style={styles.image}  source={item.img}/> }
+                    renderItem={ ({ item }) => <ImageBackground style={styles.image}  source={item.img}/> }
                     horizontal
                     showsHorizontalScrollIndicator={false}
                 />
@@ -83,11 +83,12 @@ const styles = StyleSheet.create({
     cardView:{
         paddingLeft: 30
     },
-    image: { 
+    image: {
+        flex: 1, 
         width: 300,
         height: 200,
         marginRight: 20,
         borderRadius: 12,
-        marginTop: 20
+        marginTop: 20,
     }
 });

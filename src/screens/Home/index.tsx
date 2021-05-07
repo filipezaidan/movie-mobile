@@ -6,10 +6,10 @@ import {
     Platform,
 } from 'react-native';
 
-import colors from '../../styles/colors';
 import Header from '../../components/Header';
 import MovieCardPrimary from '../../components/MovieCardPrimary';
 import MovieCardSegundary from '../../components/MovieCardSegundary';
+import colors from '../../styles/colors';
 
 const data = [
     {

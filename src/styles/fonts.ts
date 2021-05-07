@@ -1,5 +1,5 @@
 export default{
-    heading: 'Roboto_700Bold',
-    text: 'Roboto_500Medium',
-    complement: 'Roboto_400Regular',
+    heading: 'Rubik_700Bold',
+    text: 'Rubik_500Medium',
+    complement: 'Rubik_400Regular',
 }

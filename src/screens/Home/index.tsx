@@ -6,10 +6,16 @@ import {
     Platform,
 } from 'react-native';
 
+import LottieView from 'lottie-react-native';
+
 import Header from '../../components/Header';
 import MovieCardPrimary from '../../components/MovieCardPrimary';
 import MovieCardSegundary from '../../components/MovieCardSegundary';
+import Loading from '../../components/Loading';
+
 import colors from '../../styles/colors';
+
+
 
 const data = [
     {
@@ -38,7 +44,12 @@ export default function Home(){
     const  [movies,setMovies] = useState([]);
     const [loading, setLoading] = useState(true);
 
-
+    if(loading){
+        return (
+            <Loading/>
+        );
+    }
+    
     return(
         <SafeAreaView style={styles.container}>
             <Header/>

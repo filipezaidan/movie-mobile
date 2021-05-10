@@ -13,6 +13,7 @@ import { useRoute } from '@react-navigation/native'
 import colors from '../../styles/colors';
 import fonts from '../../styles/fonts';
 import Button from '../../components/Button';
+import { urlImage } from '../../services/api';
 
 interface MovieProps{
     key: number;
@@ -27,12 +28,12 @@ interface Params{
 export default function Details({}){
     const route = useRoute();
 
-    const { movie } = route.params as Params
+    const { movie } = route.params;
 
     return(
         <SafeAreaView style={styles.container}>
             <ImageBackground
-                source={movie.img}
+                source={{uri: urlImage + movie.backdrop_path}}
                 style={styles.movieImage}
                 blurRadius={2}
             >
@@ -50,10 +51,7 @@ export default function Details({}){
                             StoryLine
                         </Text>
                         <Text style={styles.aboutDescription}>
-                            Lorem ipsum dolor sit, amet consectetur adipisicing elit. 
-                            Maiores, odio animi labore quibusdam voluptatem eum corporis 
-                            quod, veritatis dolorem consequuntur quidem inventore. 
-                            A porro voluptatum nulla fugiat sunt sit veritatis.
+                            {movie.overview}
                         </Text>
                     </View>
                     <Button/>

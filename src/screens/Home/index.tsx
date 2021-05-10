@@ -15,44 +15,22 @@ import Loading from '../../components/Loading';
 
 import colors from '../../styles/colors';
 
-const data = [
-    {
-        key: 1,
-        img: require('../../assets/01.jpg')
-    },
-    {
-        key: 2, 
-        img: require('../../assets/02.jpg')
-    },
-    {
-        key: 3,
-        img: require('../../assets/03.jpg')
-    },
-    {
-        key: 4,
-        img: require('../../assets/04.jpg')
-    },
-    {
-        key: 5,
-        img: require('../../assets/05.jpg')
-    }
-]
-
 export default function Home(){
     const [movies,setMovies] = useState([]);
+    const [page, setPage] = useState(1);
     const [loading, setLoading] = useState(true);
 
 
     useEffect( () => {
         async function getMovies(){
             const { data } = await api
-            .get(`popular?api_key=${key}&language=en-US&page=1`);
+            .get(`popular?api_key=${key}&language=pt-BR&page=${page}`);
 
             if(!data){
                 return setLoading(true);
             }
-
-            console.log(data);
+            
+            setMovies(data.results);
             setLoading(false);
         }
         getMovies();
@@ -74,14 +52,15 @@ export default function Home(){
             >
                 <MovieCardPrimary
                     title='Trailers'
-                />
+                    />
                 <MovieCardSegundary
                     title='Now in Cinemas'
-                />
+                    data={movies}
+                    />
                 <MovieCardSegundary
                     title='Coming soon'
+                    data={movies}
                 />
-                
             </ScrollView>
         </SafeAreaView>
     );

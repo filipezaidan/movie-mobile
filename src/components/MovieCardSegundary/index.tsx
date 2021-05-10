@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
     View,
     Text,
@@ -11,19 +11,20 @@ import { useNavigation } from '@react-navigation/native'
 
 import colors from '../../styles/colors';
 import fonts from '../../styles/fonts';
-
-interface MovieCardSegundaryProps{
-    title: string;
-}
-
-interface MovieProps{
-    key: number;
-    name: string;
-    img: string;
-}
+import { urlImage } from '../../services/api';
 
 
-const data : MovieProps[]= [
+//interface MovieCardSegundaryProps{
+  //  title: string;
+//}
+
+//interface MovieProps{
+  //  title: string;
+    //data: [object];
+//}
+
+
+/* const data : MovieProps[]= [
     {
         key: 1,
         name: 'Os Vigadores',
@@ -50,11 +51,16 @@ const data : MovieProps[]= [
         img: require('../../assets/05.jpg')
     }
 ]
+*/
 
-export default function MovieCardSegundary({ title } : MovieCardSegundaryProps){
+export default function MovieCardSegundary({ title, data }){
     const navigation = useNavigation();
 
-    function handleSelectMovie(movie: MovieProps){
+    useEffect(() => {
+        console.log(data)
+    },[])
+
+    function handleSelectMovie(movie){
         navigation.navigate('Details', { movie })
     }
 
@@ -68,17 +74,17 @@ export default function MovieCardSegundary({ title } : MovieCardSegundaryProps){
             <View style={styles.cardView}>
                 <FlatList
                     data={data}
-                    keyExtractor={ item => String(item.key)}
+                    keyExtractor={ item => String(item.id)}
                     renderItem={ ({item}) => (
                         <TouchableOpacity
                             onPress={() => handleSelectMovie(item)}
                         >
                             <Image
                                 style={styles.image}
-                                source={item.img}
+                                source={{uri: urlImage + item.backdrop_path}}
                             />
 
-                            <Text style={styles.titleMovie}>{item.name}</Text>
+                            <Text style={styles.titleMovie}>{item.original_title}</Text>
                         </TouchableOpacity>
                         )}
                     horizontal

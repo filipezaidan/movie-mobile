@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import {
     SafeAreaView,
     StyleSheet,
@@ -35,6 +35,10 @@ const data = [
 ]
 
 export default function Home(){
+    const  [movies,setMovies] = useState([]);
+    const [loading, setLoading] = useState(true);
+
+
     return(
         <SafeAreaView style={styles.container}>
             <Header/>

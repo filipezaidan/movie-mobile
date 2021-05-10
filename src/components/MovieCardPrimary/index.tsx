@@ -38,7 +38,7 @@ const data = [
     }
 ]
 
-export default function MovieCardPrimary({ title }: MovieCardPropsPrimary){
+export default function MovieCardPrimary({ title, }: MovieCardPropsPrimary){
     return(
         <View style={styles.container}>
             <View style={styles.text}>
@@ -50,7 +50,9 @@ export default function MovieCardPrimary({ title }: MovieCardPropsPrimary){
                 <FlatList
                     data={data}
                     keyExtractor={ item => String(item.key)}
-                    renderItem={ ({ item }) => <ImageBackground style={styles.image}  source={item.img}/> }
+                    renderItem={ ({ item }) => (
+                        <ImageBackground style={styles.image}  source={item.img}/> 
+                    )}
                     horizontal
                     showsHorizontalScrollIndicator={false}
                 />

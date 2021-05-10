@@ -6,7 +6,7 @@ import {
     Platform,
 } from 'react-native';
 
-import LottieView from 'lottie-react-native';
+import api, { key } from '../../services/api';
 
 import Header from '../../components/Header';
 import MovieCardPrimary from '../../components/MovieCardPrimary';
@@ -14,8 +14,6 @@ import MovieCardSegundary from '../../components/MovieCardSegundary';
 import Loading from '../../components/Loading';
 
 import colors from '../../styles/colors';
-
-
 
 const data = [
     {
@@ -41,8 +39,26 @@ const data = [
 ]
 
 export default function Home(){
-    const  [movies,setMovies] = useState([]);
+    const [movies,setMovies] = useState([]);
     const [loading, setLoading] = useState(true);
+
+
+    useEffect( () => {
+        async function getMovies(){
+            const { data } = await api
+            .get(`popular?api_key=${key}&language=en-US&page=1`);
+
+            if(!data){
+                return setLoading(true);
+            }
+
+            console.log(data);
+            setLoading(false);
+        }
+        getMovies();
+
+    },[])
+
 
     if(loading){
         return (

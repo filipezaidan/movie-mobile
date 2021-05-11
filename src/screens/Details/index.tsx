@@ -14,6 +14,7 @@ import colors from '../../styles/colors';
 import fonts from '../../styles/fonts';
 import Button from '../../components/Button';
 import { urlImage } from '../../services/api';
+import PlayButton from '../../components/PlayButton';
 
 interface MovieProps{
     key: number;
@@ -39,6 +40,8 @@ export default function Details({}){
             >
                 <View style={styles.movieContainer}>
                     <View style={styles.movieInfo}>
+                        <PlayButton/>
+
                         <Text style={styles.movieTitle}>
                             {movie.name}
                         </Text>
@@ -48,13 +51,20 @@ export default function Details({}){
                 <View style={styles.movieAbout}>
                     <View style={styles.aboutText}>
                         <Text style={styles.aboutTitle}>
-                            StoryLine
+                            Sinopse
                         </Text>
-                        <Text style={styles.aboutDescription}>
-                            {movie.overview}
-                        </Text>
+
+                        <ScrollView 
+                            style={styles.aboutContainer}
+                            showsVerticalScrollIndicator={false}
+                        >
+                            <Text style={styles.aboutDescription}>
+                                {movie.overview}
+                            </Text>
+                        </ScrollView>
+
+                        <Button/>
                     </View>
-                    <Button/>
                 </View>
             </ImageBackground>
         </SafeAreaView>
@@ -88,12 +98,12 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: 'rgba(0,0,0,0.8)',
         alignItems: 'center',
-        justifyContent: 'space-between',
         paddingHorizontal: 10,
     },
     aboutText: {
         marginTop: 40,
         paddingHorizontal: 3,
+        alignItems: 'center',
     },
     aboutTitle:{
         fontSize: 24,
@@ -102,8 +112,12 @@ const styles = StyleSheet.create({
         color: colors.white,
         marginBottom: 15,
     },
+    aboutContainer:{
+        marginBottom: 20,
+        paddingHorizontal: 10
+    },
     aboutDescription: {
-        fontSize: 19,
+        fontSize: 15,
         color: colors.white,
         fontFamily: fonts.complement,
         textAlign: 'justify',

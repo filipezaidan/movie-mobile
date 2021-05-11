@@ -1,19 +1,17 @@
 import React from 'react';
 import {
-    View,
     TouchableOpacity,
     Text,
     StyleSheet,
 } from 'react-native';
+
 import fonts from '../../styles/fonts';
 
 export default function Button(){
     return(
-    
         <TouchableOpacity style={styles.container}>
             <Text style={styles.title}>Buy Ticket</Text>
-        </TouchableOpacity>
-        
+        </TouchableOpacity>     
     );
 }
 

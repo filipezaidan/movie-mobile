@@ -9,6 +9,7 @@ import {
 
 import colors from '../../styles/colors';
 import fonts from '../../styles/fonts';
+import PlayButton from '../PlayButton';
 
 interface MovieCardPropsPrimary{
     title: string;
@@ -51,7 +52,13 @@ export default function MovieCardPrimary({ title, }: MovieCardPropsPrimary){
                     data={data}
                     keyExtractor={ item => String(item.key)}
                     renderItem={ ({ item }) => (
-                        <ImageBackground style={styles.image}  source={item.img}/> 
+
+                        <ImageBackground 
+                            style={styles.image}  
+                            source={item.img}
+                        >
+                            <PlayButton/>
+                        </ImageBackground> 
                     )}
                     horizontal
                     showsHorizontalScrollIndicator={false}
@@ -83,7 +90,7 @@ const styles = StyleSheet.create({
         color: colors.gray
     },
     cardView:{
-        paddingLeft: 30
+        paddingLeft: 30,
     },
     image: {
         flex: 1, 
@@ -92,5 +99,5 @@ const styles = StyleSheet.create({
         marginRight: 20,
         borderRadius: 12,
         marginTop: 20,
-    }
+    },
 });

@@ -56,9 +56,13 @@ import { urlImage } from '../../services/api';
 export default function MovieCardSegundary({ title, data }){
     const navigation = useNavigation();
 
-    useEffect(() => {
-        console.log(data)
-    },[])
+    function textLimit(text){
+        if(text.length <= 7){
+            return text;
+        }else{
+            return text.substring(0,8)+ ' ...';
+        }
+     }
 
     function handleSelectMovie(movie){
         navigation.navigate('Details', { movie })
@@ -84,7 +88,9 @@ export default function MovieCardSegundary({ title, data }){
                                 source={{uri: urlImage + item.backdrop_path}}
                             />
 
-                            <Text style={styles.titleMovie}>{item.original_title}</Text>
+                            <Text style={styles.titleMovie}>
+                                {textLimit(item.original_title)}
+                            </Text>
                         </TouchableOpacity>
                         )}
                     horizontal

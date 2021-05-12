@@ -52,11 +52,13 @@ export default function Home(){
             >
                 <MovieCardPrimary
                     title='Trailers'
-                    />
+                />
+
                 <MovieCardSegundary
                     title='Now in Cinemas'
                     data={movies}
-                    />
+                />
+                
                 <MovieCardSegundary
                     title='Coming soon'
                     data={movies}

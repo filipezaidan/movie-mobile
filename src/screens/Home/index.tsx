@@ -16,24 +16,43 @@ import Loading from '../../components/Loading';
 import colors from '../../styles/colors';
 
 export default function Home(){
-    const [movies,setMovies] = useState([]);
+    const [moviesRecent,setMoviesRecent] = useState([]);
+    const [moviesLatest,setMoviesLatest] = useState([]);
     const [page, setPage] = useState(1);
     const [loading, setLoading] = useState(true);
 
 
-    useEffect( () => {
-        async function getMovies(){
-            const { data } = await api
-            .get(`popular?api_key=${key}&language=pt-BR&page=${page}`);
+    
+    async function getMoviesRecent(){
+        const { data } = await api
+        .get(`now_playing?api_key=${key}&language=pt-BR&page=${page}`);
 
-            if(!data){
-                return setLoading(true);
-            }
-            
-            setMovies(data.results);
-            setLoading(false);
+        if(!data){
+            return setLoading(true);
         }
-        getMovies();
+        
+        setMoviesRecent(data.results);
+        setLoading(false);
+    }
+
+    async function getMoviesLatest(){
+        const { data } = await api
+        .get(`upcoming?api_key=${key}&language=pt-BR&page=${page}`);
+
+        if(!data){
+            return setLoading(true);
+        }
+        
+        setMoviesLatest(data.results);
+        setLoading(false);
+    }
+
+
+
+    useEffect( () => {
+        
+        getMoviesRecent();
+        getMoviesLatest();
 
     },[])
 
@@ -55,13 +74,13 @@ export default function Home(){
                 />
 
                 <MovieCardSegundary
-                    title='Now in Cinemas'
-                    data={movies}
+                    title='Agora nos cinemas'
+                    data={moviesRecent}
                 />
                 
                 <MovieCardSegundary
-                    title='Coming soon'
-                    data={movies}
+                    title='Lançamentos'
+                    data={moviesLatest}
                 />
             </ScrollView>
         </SafeAreaView>

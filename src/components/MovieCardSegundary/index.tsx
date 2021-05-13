@@ -14,53 +14,14 @@ import fonts from '../../styles/fonts';
 import { urlImage } from '../../services/api';
 
 
-//interface MovieCardSegundaryProps{
-  //  title: string;
-//}
-
-//interface MovieProps{
-  //  title: string;
-    //data: [object];
-//}
-
-
-/* const data : MovieProps[]= [
-    {
-        key: 1,
-        name: 'Os Vigadores',
-        img: require('../../assets/01.jpg')
-    },
-    {
-        key: 2, 
-        name: 'Os Vigadores 2',
-        img: require('../../assets/02.jpg')
-    },
-    {
-        key: 3,
-        name: 'Os Vigadores',
-        img: require('../../assets/03.jpg')
-    },
-    {
-        key: 4,
-        name: 'Os Vigadores',
-        img: require('../../assets/04.jpg')
-    },
-    {
-        key: 5,
-        name: 'Os Vigadores',
-        img: require('../../assets/05.jpg')
-    }
-]
-*/
-
 export default function MovieCardSegundary({ title, data }){
     const navigation = useNavigation();
 
-    function textLimit(text){
-        if(text.length <= 7){
+    function textLimit(text: string){
+        if(text.length <= 15){
             return text;
         }else{
-            return text.substring(0,8)+ ' ...';
+            return text.substring(0,14)+ '...';
         }
      }
 
@@ -72,7 +33,7 @@ export default function MovieCardSegundary({ title, data }){
         <View style={styles.container}>
             <View style={styles.text}>
                 <Text style={styles.title}>{title}</Text>
-                <Text style={styles.subtitle}>View all</Text>
+                <Text style={styles.subtitle}>Ver todos</Text>
             </View>
 
             <View style={styles.cardView}>
@@ -133,7 +94,7 @@ const styles = StyleSheet.create({
         marginTop: 20
     },
     titleMovie:{
-        fontSize: 16,
+        fontSize: 15,
         fontFamily: fonts.text,
         color: colors.white,
         marginTop: 10,

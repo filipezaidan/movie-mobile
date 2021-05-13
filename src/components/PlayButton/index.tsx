@@ -1,5 +1,9 @@
 import React from 'react';
-import { View, TouchableOpacity, StyleSheet } from 'react-native';
+import {
+    View,
+    TouchableOpacity,
+    StyleSheet,
+} from 'react-native';
 
 import { Entypo } from '@expo/vector-icons';
 
@@ -28,9 +32,9 @@ const styles = StyleSheet.create({
         alignItems: 'center', 
     },
     button:{
-        width: 72,
-        height: 72,
-        borderRadius: 36,
+        width: 68,
+        height: 68,
+        borderRadius: 34,
         backgroundColor: 'rgba(175,183,182,0.5)',
         alignItems: 'center',
         justifyContent: 'center',

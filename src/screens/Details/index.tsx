@@ -1,4 +1,4 @@
-import React  from 'react';
+import React, { useState, useEffect }  from 'react';
 import {
     View,
     Text,
@@ -8,28 +8,41 @@ import {
     ImageBackground, 
     ScrollView,
 } from 'react-native';
-import { useRoute } from '@react-navigation/native'
+import { useRoute } from '@react-navigation/native';
+
+import Button from '../../components/Button';
+import api, { key, urlImage } from '../../services/api';
+import PlayButton from '../../components/PlayButton';
+import Loading from '../../components/Loading';
 
 import colors from '../../styles/colors';
 import fonts from '../../styles/fonts';
-import Button from '../../components/Button';
-import { urlImage } from '../../services/api';
-import PlayButton from '../../components/PlayButton';
-
-interface MovieProps{
-    key: number;
-    name: string;
-    img: string;
-}
-
-interface Params{
-    movie: MovieProps
-}
 
 export default function Details({}){
     const route = useRoute();
-
     const { movie } = route.params;
+
+    const [movieDetail, setMovieDetail] = useState([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect( () => {
+        async function handleGetMovieDetail(){
+            const { data } = await api
+            .get(`${movie.id}?api_key=${key}&language=pt-BR`);
+    
+            if(!data){
+                return setLoading(true);
+            }
+            
+            setMovieDetail(data);
+            setLoading(false);
+        }
+        handleGetMovieDetail();
+    },[movie])
+
+    if(loading){
+        return <Loading/>
+    }
 
     return(
         <SafeAreaView style={styles.container}>
@@ -39,11 +52,16 @@ export default function Details({}){
                 blurRadius={2}
             >
                 <View style={styles.movieContainer}>
-                    <View style={styles.movieInfo}>
                         <PlayButton/>
+                    <View style={styles.movieInfo}>
 
                         <Text style={styles.movieTitle}>
-                            {movie.name}
+                            {movie.original_title}
+                            
+                        </Text>
+
+                        <Text style={styles.movieDetail}>
+                        {movieDetail.release_date.substring(0,4)} | {movieDetail.genres[0].name}
                         </Text>
                     </View>
                 </View>
@@ -85,14 +103,25 @@ const styles = StyleSheet.create({
         backgroundColor: 'rgba(0,0,0,0.4)',
     },
     movieInfo: {
-        marginTop: '55%'
+        flex: 1,
+        marginTop: '55%',
+        justifyContent: 'space-between',
+        alignItems: 'center'
 
     },
     movieTitle:{
+        marginTop: 60,
         fontSize: 28,
         textAlign: 'center',
         color: colors.white,
         fontFamily: fonts.heading,
+    },
+    movieDetail:{
+        marginBottom: 5,
+        fontFamily: fonts.complement,
+        color: colors.white,
+        fontSize: 15
+
     },
     movieAbout: {
         flex: 1,

@@ -17,6 +17,8 @@ import Loading from '../../components/Loading';
 
 import colors from '../../styles/colors';
 import fonts from '../../styles/fonts';
+import RatingBar from '../../components/RatingBar';
+
 
 export default function Details({}){
     const route = useRoute();
@@ -53,12 +55,15 @@ export default function Details({}){
             >
                 <View style={styles.movieContainer}>
                         <PlayButton/>
+
                     <View style={styles.movieInfo}>
 
                         <Text style={styles.movieTitle}>
                             {movie.original_title}
                             
                         </Text>
+
+                        <RatingBar votes={movieDetail.vote_average}/>
 
                         <Text style={styles.movieDetail}>
                         {movieDetail.release_date.substring(0,4)} | {movieDetail.genres[0].name}
@@ -70,14 +75,15 @@ export default function Details({}){
                     <View style={styles.aboutText}>
                         <Text style={styles.aboutTitle}>
                             Sinopse
-                        </Text>
+                            
+                        </Text>  
 
                         <ScrollView 
                             style={styles.aboutContainer}
                             showsVerticalScrollIndicator={false}
                         >
                             <Text style={styles.aboutDescription}>
-                                {movie.overview}
+                                {movie.overview ? movie.overview : 'Este filme não possui sinopse.'}
                             </Text>
                         </ScrollView>
 
@@ -104,13 +110,12 @@ const styles = StyleSheet.create({
     },
     movieInfo: {
         flex: 1,
-        marginTop: '55%',
-        justifyContent: 'space-between',
-        alignItems: 'center'
-
+        width: '85%',
+        marginTop: '57%',
+        alignItems: 'center',
     },
     movieTitle:{
-        marginTop: 60,
+        marginTop: 25,
         fontSize: 28,
         textAlign: 'center',
         color: colors.white,

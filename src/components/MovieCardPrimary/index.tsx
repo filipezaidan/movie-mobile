@@ -44,7 +44,7 @@ export default function MovieCardPrimary({ title, }: MovieCardPropsPrimary){
         <View style={styles.container}>
             <View style={styles.text}>
                 <Text style={styles.title}>{title}</Text>
-                <Text style={styles.subtitle}>View all</Text>
+                <Text style={styles.subtitle}>Ver todos</Text>
             </View>
 
             <View style={styles.cardView}>

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import {
     View,
     Text,
@@ -6,15 +6,21 @@ import {
     FlatList,
     StyleSheet,
     TouchableOpacity,
- } from 'react-native';
+} from 'react-native';
 import { useNavigation } from '@react-navigation/native'
+
+import { urlImage } from '../../services/api';
+import { MoviesProps } from '../../libs/storage';
 
 import colors from '../../styles/colors';
 import fonts from '../../styles/fonts';
-import { urlImage } from '../../services/api';
 
+interface MovieCardProps {
+    title: string;
+    movies: MoviesProps[];
+}
 
-export default function MovieCardSegundary({ title, data }){
+export default function MovieCardSegundary({ title, movies } : MovieCardProps){
     const navigation = useNavigation();
 
     function textLimit(text: string){
@@ -25,7 +31,7 @@ export default function MovieCardSegundary({ title, data }){
         }
      }
 
-    function handleSelectMovie(movie){
+    function handleSelectMovie(movie : MoviesProps){
         navigation.navigate('Details', { movie })
     }
 
@@ -38,7 +44,7 @@ export default function MovieCardSegundary({ title, data }){
 
             <View style={styles.cardView}>
                 <FlatList
-                    data={data}
+                    data={movies}
                     keyExtractor={ item => String(item.id)}
                     renderItem={ ({item}) => (
                         <TouchableOpacity
@@ -50,7 +56,7 @@ export default function MovieCardSegundary({ title, data }){
                             />
 
                             <Text style={styles.titleMovie}>
-                                {textLimit(item.original_title)}
+                                {textLimit(item.title)}
                             </Text>
                         </TouchableOpacity>
                         )}

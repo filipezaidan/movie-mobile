@@ -4,16 +4,21 @@ import { AntDesign } from '@expo/vector-icons';
 
 import colors from '../../styles/colors';
 
-export default function  RatingBar({ votes }){
-    const [rating, setRating] = useState([1,2,3,4,5]);
+interface RatingProps{
+    votes: number;
+}
+
+export default function  RatingBar({ votes } : RatingProps){
+    const [rating, setRating] = useState<number[]>([1,2,3,4,5]);
 
     const value = votes/2;
 
     return(
         <View style={styles.container}>
-            {rating.map( (item) => {
+            {rating.map( (item, index) => {
                 return(
-                    <AntDesign 
+                    <AntDesign
+                        key={index}
                         name='star'
                         size={23} 
                         color={

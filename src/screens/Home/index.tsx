@@ -7,6 +7,7 @@ import {
 } from 'react-native';
 
 import api, { key } from '../../services/api';
+import { MoviesProps } from '../../libs/storage';
 
 import Header from '../../components/Header';
 import MovieCardPrimary from '../../components/MovieCardPrimary';
@@ -15,14 +16,13 @@ import Loading from '../../components/Loading';
 
 import colors from '../../styles/colors';
 
+
 export default function Home(){
-    const [moviesRecent,setMoviesRecent] = useState([]);
-    const [moviesLatest,setMoviesLatest] = useState([]);
-    const [page, setPage] = useState(1);
-    const [loading, setLoading] = useState(true);
+    const [moviesRecent,setMoviesRecent] = useState<MoviesProps[]>([]);
+    const [moviesLatest,setMoviesLatest] = useState<MoviesProps[]>([]);
+    const [page, setPage] = useState<number>(1);
+    const [loading, setLoading] = useState<boolean>(true);
 
-
-    
     async function getMoviesRecent(){
         const { data } = await api
         .get(`now_playing?api_key=${key}&language=pt-BR&page=${page}`);
@@ -30,7 +30,7 @@ export default function Home(){
         if(!data){
             return setLoading(true);
         }
-        
+
         setMoviesRecent(data.results);
         setLoading(false);
     }
@@ -42,12 +42,10 @@ export default function Home(){
         if(!data){
             return setLoading(true);
         }
-        
+
         setMoviesLatest(data.results);
         setLoading(false);
     }
-
-
 
     useEffect( () => {
         
@@ -75,12 +73,12 @@ export default function Home(){
 
                 <MovieCardSegundary
                     title='Agora nos cinemas'
-                    data={moviesRecent}
+                    movies={moviesRecent}
                 />
                 
                 <MovieCardSegundary
                     title='Lançamentos'
-                    data={moviesLatest}
+                    movies={moviesLatest}
                 />
             </ScrollView>
         </SafeAreaView>

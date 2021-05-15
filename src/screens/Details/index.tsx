@@ -10,22 +10,34 @@ import {
 } from 'react-native';
 import { useRoute } from '@react-navigation/native';
 
-import Button from '../../components/Button';
 import api, { key, urlImage } from '../../services/api';
+import { MoviesProps } from '../../libs/storage';
+
+import Button from '../../components/Button';
 import PlayButton from '../../components/PlayButton';
 import Loading from '../../components/Loading';
+import RatingBar from '../../components/RatingBar';
 
 import colors from '../../styles/colors';
 import fonts from '../../styles/fonts';
-import RatingBar from '../../components/RatingBar';
 
+interface Params {
+    movie : MoviesProps;
+}
 
-export default function Details({}){
+interface MovieDetail{
+    release_date: string;
+    genres: {
+        name: string;
+    }[];
+}
+
+export default function Details(){
     const route = useRoute();
-    const { movie } = route.params;
+    const { movie } = route.params as Params
 
-    const [movieDetail, setMovieDetail] = useState([]);
-    const [loading, setLoading] = useState(true);
+    const [movieDetail, setMovieDetail] = useState<MovieDetail>();
+    const [loading, setLoading] = useState<boolean>(true);
 
     useEffect( () => {
         async function handleGetMovieDetail(){
@@ -59,14 +71,14 @@ export default function Details({}){
                     <View style={styles.movieInfo}>
 
                         <Text style={styles.movieTitle}>
-                            {movie.original_title}
+                            {movie.title}
                             
                         </Text>
 
-                        <RatingBar votes={movieDetail.vote_average}/>
+                        <RatingBar votes={movie.vote_average}/>
 
                         <Text style={styles.movieDetail}>
-                        {movieDetail.release_date.substring(0,4)} | {movieDetail.genres[0].name}
+                        {movieDetail?.release_date} | {movieDetail?.genres[0].name}
                         </Text>
                     </View>
                 </View>
@@ -83,10 +95,13 @@ export default function Details({}){
                             showsVerticalScrollIndicator={false}
                         >
                             <Text style={styles.aboutDescription}>
-                                {movie.overview ? movie.overview : 'Este filme não possui sinopse.'}
+                                {movie.overview ? 
+                                    movie.overview 
+                                    : 
+                                    'Este filme não possui sinopse cadastradas em nosso banco de dados.'
+                                }
                             </Text>
                         </ScrollView>
-
                         <Button/>
                     </View>
                 </View>

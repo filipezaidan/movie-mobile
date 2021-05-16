@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
     },
     loading:{
         marginLeft: '3%',
-        width: 250,
-        height: 250,
+        width: 200,
+        height: 200,
     }
 });

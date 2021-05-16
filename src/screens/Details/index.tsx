@@ -7,6 +7,7 @@ import {
     Platform,
     ImageBackground, 
     ScrollView,
+    Modal,
 } from 'react-native';
 import { useRoute } from '@react-navigation/native';
 
@@ -20,6 +21,7 @@ import RatingBar from '../../components/RatingBar';
 
 import colors from '../../styles/colors';
 import fonts from '../../styles/fonts';
+import ModalYoutube from '../../components/ModalYoutube';
 
 interface Params {
     movie : MoviesProps;
@@ -38,6 +40,7 @@ export default function Details(){
 
     const [movieDetail, setMovieDetail] = useState<MovieDetail>();
     const [loading, setLoading] = useState<boolean>(true);
+    const [modalVisible, setModalVisible] = useState<boolean>(false);
 
     useEffect( () => {
         async function handleGetMovieDetail(){
@@ -66,7 +69,9 @@ export default function Details(){
                 blurRadius={2}
             >
                 <View style={styles.movieContainer}>
-                        <PlayButton/>
+                        <PlayButton
+                            onPress={() => setModalVisible(true)}
+                        />
 
                     <View style={styles.movieInfo}>
 
@@ -106,6 +111,12 @@ export default function Details(){
                     </View>
                 </View>
             </ImageBackground>
+            <Modal
+                visible={modalVisible}
+                transparent={true}
+            >
+               <ModalYoutube/>
+            </Modal>
         </SafeAreaView>
     );
 }
@@ -140,8 +151,7 @@ const styles = StyleSheet.create({
         marginBottom: 5,
         fontFamily: fonts.complement,
         color: colors.white,
-        fontSize: 15
-
+        fontSize: 15,
     },
     movieAbout: {
         flex: 1,

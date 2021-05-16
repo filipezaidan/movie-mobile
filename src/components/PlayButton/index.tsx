@@ -3,14 +3,21 @@ import {
     View,
     TouchableOpacity,
     StyleSheet,
+    TouchableOpacityProps
 } from 'react-native';
 
 import { Entypo } from '@expo/vector-icons';
 
-export default function PlayButton(){
+interface PlayProps extends TouchableOpacityProps{
+
+}
+
+export default function PlayButton({onPress}: PlayProps) {
     return(
         <View style={styles.container} >
-            <TouchableOpacity style={styles.button}>
+            <TouchableOpacity style={styles.button}
+                onPress={onPress}
+            >
                 <Entypo
                     name='controller-play'
                     size={38}

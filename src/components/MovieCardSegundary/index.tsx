@@ -76,8 +76,9 @@ const styles = StyleSheet.create({
     text: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-        alignItems: 'baseline',
-        paddingHorizontal: 25,
+        alignItems: 'center',
+        paddingLeft: 25,
+        paddingRight: 10,
     },
     title:{
         fontFamily: fonts.heading,
@@ -87,7 +88,7 @@ const styles = StyleSheet.create({
     subtitle: {
         fontFamily: fonts.complement,
         fontSize: 15,
-        color: colors.gray
+        color: colors.gray,
     },
     cardView:{
         paddingLeft: 30

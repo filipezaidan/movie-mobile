@@ -16,7 +16,6 @@ import Loading from '../../components/Loading';
 
 import colors from '../../styles/colors';
 
-
 export default function Home(){
     const [moviesRecent,setMoviesRecent] = useState<MoviesProps[]>([]);
     const [moviesLatest,setMoviesLatest] = useState<MoviesProps[]>([]);
@@ -64,6 +63,7 @@ export default function Home(){
     return(
         <SafeAreaView style={styles.container}>
             <Header/>
+            
             <ScrollView 
                 showsVerticalScrollIndicator={false}
             >

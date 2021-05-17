@@ -1,33 +1,40 @@
 import React from 'react';
 import {
     View,
-    Text,
     StyleSheet,
-    TouchableWithoutFeedback,
+    TouchableOpacity,
 } from 'react-native';
 import { AntDesign } from '@expo/vector-icons'
 
-import YoutubeIframe, { getYoutubeMeta } from "react-native-youtube-iframe";
+import YoutubeIframe from "react-native-youtube-iframe";
 
+interface YoutubeProps{
+    videoId: string;
+    onClose: () => void;
+}
 
-export default function ModalYoutube({}){
+export default function ModalYoutube({ videoId, onClose } : YoutubeProps){
     return(
         <View style={styles.container}>
 
-                <View style={{backgroundColor: 'rgba(0,0,0,0.3)', height: 250, paddingHorizontal: 20}}>
+                <View style={styles.content}>
 
-                    <TouchableWithoutFeedback>
+                    <TouchableOpacity
+                        onPress={onClose}
+                        style={styles.button}
+                    
+                    >
                         <AntDesign
                             name='close'
                             color='#fff'
                             size={32}
                         />
-                    </TouchableWithoutFeedback>
+                    </TouchableOpacity>
                     
                     <YoutubeIframe
                         play={true}
-                        height={250}
-                        videoId={"2qm_eh-rV8g"}
+                        height={350}
+                        videoId={videoId}
                     />
                 </View>
         </View>
@@ -40,5 +47,16 @@ const styles = StyleSheet.create({
         backgroundColor: 'rgba(0,0,0,0.9)',
         justifyContent: 'center',
         paddingHorizontal: 10,
+    },
+    content:{
+        backgroundColor: 'rgba(0,0,0,0.1)', 
+        height: 500, 
+        paddingHorizontal: 20,
+        paddingVertical: 20,
+        justifyContent: 'center'
+    },
+    button:{
+        alignItems: 'flex-end',
+        marginBottom: 10,
     }
 });

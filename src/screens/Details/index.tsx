@@ -34,27 +34,55 @@ interface MovieDetail{
     }[];
 }
 
+interface MovieVideo {
+    key: string;
+    site: string; 
+    size: string;
+}
+
 export default function Details(){
     const route = useRoute();
     const { movie } = route.params as Params
 
     const [movieDetail, setMovieDetail] = useState<MovieDetail>();
+    const [movieVideo, setMovieVideo] = useState<MovieVideo>();
+    
     const [loading, setLoading] = useState<boolean>(true);
     const [modalVisible, setModalVisible] = useState<boolean>(false);
 
-    useEffect( () => {
-        async function handleGetMovieDetail(){
-            const { data } = await api
-            .get(`${movie.id}?api_key=${key}&language=pt-BR`);
-    
-            if(!data){
-                return setLoading(true);
-            }
-            
-            setMovieDetail(data);
-            setLoading(false);
+    async function handleGetMovieDetail(){
+        const { data } = await api
+        .get(`${movie.id}?api_key=${key}&language=pt-BR`);
+
+        if(!data){
+            return setLoading(true);
         }
+        
+        setMovieDetail(data);
+        //setLoading(false);
+    }
+
+    async function handleGetMovieVideo(){
+        const { data } = await api
+        .get(`${movie.id}/videos?api_key=${key}&language=pt-BR`);
+
+        if(!data){
+            return setLoading(true);
+        }
+        
+        setMovieVideo(data.results[0])
+        //setLoading(false);
+    }
+
+    function handleCloseModal(){
+        setModalVisible((value) => !value)
+    }
+
+    useEffect( () => {
+        
         handleGetMovieDetail();
+        handleGetMovieVideo();
+        setLoading(false);
     },[movie])
 
     if(loading){
@@ -76,14 +104,13 @@ export default function Details(){
                     <View style={styles.movieInfo}>
 
                         <Text style={styles.movieTitle}>
-                            {movie.title}
-                            
+                            {movie.title}       
                         </Text>
 
                         <RatingBar votes={movie.vote_average}/>
 
                         <Text style={styles.movieDetail}>
-                        {movieDetail?.release_date} | {movieDetail?.genres[0].name}
+                            {movieDetail?.release_date} | {movieDetail?.genres[0].name}
                         </Text>
                     </View>
                 </View>
@@ -107,6 +134,7 @@ export default function Details(){
                                 }
                             </Text>
                         </ScrollView>
+
                         <Button/>
                     </View>
                 </View>
@@ -115,7 +143,10 @@ export default function Details(){
                 visible={modalVisible}
                 transparent={true}
             >
-               <ModalYoutube/>
+               <ModalYoutube 
+                videoId={movieVideo?.key}
+                onClose={handleCloseModal}
+                />
             </Modal>
         </SafeAreaView>
     );

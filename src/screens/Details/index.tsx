@@ -11,6 +11,7 @@ import {
 } from 'react-native';
 import { useRoute } from '@react-navigation/native';
 import { useNavigation } from '@react-navigation/native';
+import { format } from 'date-fns';
 
 import api, { key, urlImage } from '../../services/api';
 import { MoviesProps } from '../../libs/storage';
@@ -19,12 +20,11 @@ import Button from '../../components/Button';
 import PlayButton from '../../components/PlayButton';
 import Loading from '../../components/Loading';
 import RatingBar from '../../components/RatingBar';
+import ModalYoutube from '../../components/ModalYoutube';
+import BackButton from '../../components/BackButton';
 
 import colors from '../../styles/colors';
 import fonts from '../../styles/fonts';
-import ModalYoutube from '../../components/ModalYoutube';
-import BackButton from '../../components/BackButton';
-import { TouchableOpacity } from 'react-native-gesture-handler';
 
 interface Params {
     movie : MoviesProps;
@@ -83,8 +83,12 @@ export default function Details(){
         setModalVisible((value) => !value)
     }
 
+    function handleChangeDate(date: string){
+        const newDate = new Date(date)
+        return format( new Date(newDate), 'dd/MM/yyyy')
+    }
+
     useEffect( () => {
-        
         handleGetMovieDetail();
         handleGetMovieVideo();
         setLoading(false);
@@ -125,7 +129,7 @@ export default function Details(){
                             />
 
                             <Text style={styles.movieDetail}>
-                                {movieDetail?.release_date} | {movieDetail?.genres[0].name}
+                                {handleChangeDate(movieDetail?.release_date || '')} | {movieDetail?.genres[0].name}
                             </Text>
                         </View>
                     </View>
@@ -147,7 +151,7 @@ export default function Details(){
                                 {movie.overview ? 
                                     movie.overview 
                                     : 
-                                    'Este filme não possui sinopse cadastradas em nosso banco de dados.'
+                                    'Este filme não possui sinopse cadastrada em nosso banco de dados.'
                                 }
                             </Text>
                         </ScrollView>
@@ -161,7 +165,7 @@ export default function Details(){
                 transparent={true}
             >
                <ModalYoutube 
-                videoId={movieVideo?.key}
+                videoId={movieVideo?.key || ''}
                 onClose={handleCloseModal}
                 />
             </Modal>

@@ -14,6 +14,7 @@ import { MoviesProps } from '../../libs/storage';
 
 import colors from '../../styles/colors';
 import fonts from '../../styles/fonts';
+import RatingBar from '../RatingBar';
 
 interface MovieCardProps {
     title: string;
@@ -58,6 +59,11 @@ export default function MovieCardSegundary({ title, movies } : MovieCardProps){
                             <Text style={styles.titleMovie}>
                                 {textLimit(item.title)}
                             </Text>
+
+                            <RatingBar 
+                                votes={item.vote_average} 
+                                size={15}
+                            />
                         </TouchableOpacity>
                         )}
                     horizontal
@@ -70,8 +76,7 @@ export default function MovieCardSegundary({ title, movies } : MovieCardProps){
 
 const styles = StyleSheet.create({
     container: {
-        marginTop: 15,
-        marginBottom: 0,
+        marginVertical: 20,
     },
     text: {
         flexDirection: 'row',

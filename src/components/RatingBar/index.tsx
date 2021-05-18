@@ -6,9 +6,10 @@ import colors from '../../styles/colors';
 
 interface RatingProps{
     votes: number;
+    size: number;
 }
 
-export default function  RatingBar({ votes } : RatingProps){
+export default function  RatingBar({ votes, size } : RatingProps){
     const [rating, setRating] = useState<number[]>([1,2,3,4,5]);
 
     const value = votes/2;
@@ -20,7 +21,7 @@ export default function  RatingBar({ votes } : RatingProps){
                     <AntDesign
                         key={index}
                         name='star'
-                        size={23} 
+                        size={size} 
                         color={
                             item <= value ? 
                             colors.yellow : colors.gray
@@ -36,7 +37,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1, 
         flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'center',
+        //alignItems: 'center',
+        //justifyContent: 'center',
     }
 });

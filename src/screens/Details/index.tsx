@@ -10,6 +10,7 @@ import {
     Modal,
 } from 'react-native';
 import { useRoute } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 
 import api, { key, urlImage } from '../../services/api';
 import { MoviesProps } from '../../libs/storage';
@@ -22,6 +23,8 @@ import RatingBar from '../../components/RatingBar';
 import colors from '../../styles/colors';
 import fonts from '../../styles/fonts';
 import ModalYoutube from '../../components/ModalYoutube';
+import BackButton from '../../components/BackButton';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 interface Params {
     movie : MoviesProps;
@@ -41,7 +44,9 @@ interface MovieVideo {
 }
 
 export default function Details(){
+    const navigation = useNavigation();
     const route = useRoute();
+
     const { movie } = route.params as Params
 
     const [movieDetail, setMovieDetail] = useState<MovieDetail>();
@@ -97,22 +102,34 @@ export default function Details(){
                 blurRadius={2}
             >
                 <View style={styles.movieContainer}>
-                        <PlayButton
-                            onPress={() => setModalVisible(true)}
-                        />
+                    <BackButton 
+                        onPress={() => navigation.goBack()}
+                    />
 
-                    <View style={styles.movieInfo}>
+                    <View style={styles.movieInfoContainer}>
+                            <View style={styles.playContainer}> 
+                                <PlayButton
+                                    onPress={() => setModalVisible(true)}
+                                />
+                            </View>
 
-                        <Text style={styles.movieTitle}>
-                            {movie.title}       
-                        </Text>
+                        <View style={styles.movieInfo}>
 
-                        <RatingBar votes={movie.vote_average}/>
+                            <Text style={styles.movieTitle}>
+                                {movie.title}       
+                            </Text>
 
-                        <Text style={styles.movieDetail}>
-                            {movieDetail?.release_date} | {movieDetail?.genres[0].name}
-                        </Text>
+                            <RatingBar 
+                                votes={movie.vote_average}
+                                size={23}    
+                            />
+
+                            <Text style={styles.movieDetail}>
+                                {movieDetail?.release_date} | {movieDetail?.genres[0].name}
+                            </Text>
+                        </View>
                     </View>
+
                 </View>
 
                 <View style={styles.movieAbout}>
@@ -162,17 +179,24 @@ const styles = StyleSheet.create({
     },
     movieContainer: {
         flex: 1,
-        alignItems: 'center',
         backgroundColor: 'rgba(0,0,0,0.4)',
+    },
+    movieInfoContainer:{
+        flex: 1,
+        alignItems: 'center',
+    },
+    playContainer:{
+        marginTop: '30%'
     },
     movieInfo: {
         flex: 1,
         width: '85%',
-        marginTop: '57%',
+        marginTop: '10%',
         alignItems: 'center',
     },
     movieTitle:{
         marginTop: 25,
+        marginBottom: 10,
         fontSize: 28,
         textAlign: 'center',
         color: colors.white,

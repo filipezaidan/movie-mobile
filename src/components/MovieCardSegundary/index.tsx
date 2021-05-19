@@ -40,7 +40,12 @@ export default function MovieCardSegundary({ title, movies } : MovieCardProps){
         <View style={styles.container}>
             <View style={styles.text}>
                 <Text style={styles.title}>{title}</Text>
-                <Text style={styles.subtitle}>Ver todos</Text>
+                
+                <TouchableOpacity
+                    onPress={() => navigation.navigate('ViewAll')}
+                >
+                    <Text style={styles.subtitle}>Ver todos</Text>
+                </TouchableOpacity>
             </View>
 
             <View style={styles.cardView}>

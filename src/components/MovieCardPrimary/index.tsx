@@ -5,6 +5,7 @@ import {
     ImageBackground,
     FlatList,
     StyleSheet,
+    TouchableOpacity,
 } from 'react-native';
 
 import colors from '../../styles/colors';
@@ -44,7 +45,10 @@ export default function MovieCardPrimary({ title, }: MovieCardPropsPrimary){
         <View style={styles.container}>
             <View style={styles.text}>
                 <Text style={styles.title}>{title}</Text>
-                <Text style={styles.subtitle}>Ver todos</Text>
+                
+                <TouchableOpacity>
+                    <Text style={styles.subtitle}>Ver todos</Text>
+                </TouchableOpacity>
             </View>
 
             <View style={styles.cardView}>

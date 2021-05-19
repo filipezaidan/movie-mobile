@@ -5,15 +5,21 @@ import {
     TouchableOpacity,
     StyleSheet,
 } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 import { Feather, Ionicons  } from '@expo/vector-icons';
+
 
 import profile from '../../assets/profile.jpg';
 
 export default function Header(){
+    const navigation = useNavigation();
+
     return(
         <View style={styles.container}>
-            <TouchableOpacity>
+            <TouchableOpacity
+                onPress={() => navigation.toggleDrawer()}
+            >
                 <Feather 
                     name='menu' 
                     size={32} 

@@ -84,6 +84,10 @@ export default function Details(){
     }
 
     function handleChangeDate(date: string){
+        if(date === ''){
+            return;
+        }
+
         const newDate = new Date(date)
         return format( new Date(newDate), 'dd/MM/yyyy')
     }
@@ -129,7 +133,7 @@ export default function Details(){
                             />
 
                             <Text style={styles.movieDetail}>
-                                {handleChangeDate(movieDetail?.release_date || '')} | {movieDetail?.genres[0].name}
+                            {handleChangeDate(movieDetail?.release_date || '')} | {movieDetail?.genres[0].name}
                             </Text>
                         </View>
                     </View>

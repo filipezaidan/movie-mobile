@@ -5,13 +5,10 @@ import {
     TouchableOpacity,
     StyleSheet,
     Image,
- } from 'react-native';
+} from 'react-native';
 import colors from '../../styles/colors';
 import fonts from '../../styles/fonts';
-
 import RatingBar from '../RatingBar';
-
-
 
 
 export default function  Movie({ title, image,  }){
@@ -27,9 +24,6 @@ export default function  Movie({ title, image,  }){
 
     return(
         <View style={styles.container}>
-            <TouchableOpacity
-                //onPress={() => handleSelectMovie(item)}
-            >
                 <Image
                     style={styles.image}
                     source={image}
@@ -43,7 +37,6 @@ export default function  Movie({ title, image,  }){
                     votes={8} 
                     size={15}
                 />
-            </TouchableOpacity>
         </View>
     );
 }

@@ -24,6 +24,7 @@ export default function Drawer(){
                 name='ViewAll'
                 component={ViewAll}
             />
+
         </DrawerRoutes.Navigator>
     );
 }

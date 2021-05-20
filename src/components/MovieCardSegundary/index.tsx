@@ -19,9 +19,10 @@ import RatingBar from '../RatingBar';
 interface MovieCardProps {
     title: string;
     movies: MoviesProps[];
+    requestType: string;
 }
 
-export default function MovieCardSegundary({ title, movies } : MovieCardProps){
+export default function MovieCardSegundary({ title, movies, requestType } : MovieCardProps){
     const navigation = useNavigation();
 
     function textLimit(text: string){
@@ -42,7 +43,7 @@ export default function MovieCardSegundary({ title, movies } : MovieCardProps){
                 <Text style={styles.title}>{title}</Text>
                 
                 <TouchableOpacity
-                    onPress={() => navigation.navigate('ViewAll')}
+                    onPress={() => navigation.navigate('ViewAll', { requestType })}
                 >
                     <Text style={styles.subtitle}>Ver todos</Text>
                 </TouchableOpacity>

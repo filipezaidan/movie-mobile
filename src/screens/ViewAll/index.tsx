@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect }from 'react';
 import {
     View,
     Text,
@@ -9,14 +9,19 @@ import {
     FlatList,
     Image
 } from 'react-native';
+import { useRoute } from '@react-navigation/native'
+
 import Header from '../../components/Header';
 import Movie from '../../components/Movie';
 
 
 import colors from '../../styles/colors';
+import api, { key, urlImage } from '../../services/api';
+import { MoviesProps } from '../../libs/storage';
+import Loading from '../../components/Loading';
 
 
-const data = [
+/*const data = [
     {
         key: 1,
         img: require('../../assets/01.jpg')
@@ -80,17 +85,57 @@ const data = [
 ]
 
 
+*/
+
+interface Params {
+    requestType : string;
+}
+
 export default function ViewAll(){
+
+    const route = useRoute();
+    const { requestType } = route.params as Params;
+
+    const [movies,setMovies] = useState<MoviesProps[]>([])
+    const [page, setPage] = useState<number>(1);
+    const [loading, setLoading] = useState<boolean>(true);
+
+
+    async function getMovies(){
+        const { data } = await api
+        .get(`${requestType}?api_key=${key}&language=pt-BR&page=${page}`);
+
+        if(!data){
+            return setLoading(true);
+        }
+
+        setMovies(data.results);
+        setLoading(false);
+    }
+
+
+    useEffect(() => {
+        getMovies();
+    },[requestType])
+
+    if(loading){
+        return <Loading/>
+    }
+
+
     return(
         <SafeAreaView style={styles.container}>
             <Header/>
 
             <FlatList
-                data={data}
-                keyExtractor={ (item) => String(item.key)}
+                data={movies}
+                keyExtractor={ (item) => String(item.id)}
                 renderItem={({item})=> {
                     return(
-                        <Movie image={item.img}/>
+                        <Movie 
+                            title={item.title}
+                            image={{uri: urlImage + item.backdrop_path}}
+                        />
                     );
                 
 

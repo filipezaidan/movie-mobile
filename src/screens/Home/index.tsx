@@ -46,6 +46,8 @@ export default function Home(){
         setLoading(false);
     }
 
+
+
     useEffect( () => {
         
         getMoviesRecent();
@@ -74,11 +76,14 @@ export default function Home(){
                 <MovieCardSegundary
                     title='Agora nos cinemas'
                     movies={moviesRecent}
+                    requestType={'now_playing'}
+
                 />
                 
                 <MovieCardSegundary
                     title='Lançamentos'
                     movies={moviesLatest}
+                    requestType={'upcoming'}
                 />
             </ScrollView>
         </SafeAreaView>

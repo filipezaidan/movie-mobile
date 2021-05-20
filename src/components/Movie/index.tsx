@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect} from 'react';
 import {
     View,
     Text,
@@ -6,10 +6,25 @@ import {
     StyleSheet,
     Image,
  } from 'react-native';
+import colors from '../../styles/colors';
+import fonts from '../../styles/fonts';
 
 import RatingBar from '../RatingBar';
 
-export default function  Movie({ image }){
+
+
+
+export default function  Movie({ title, image,  }){
+
+    function textLimit(text: string){
+        if(text.length <= 14){
+            return text;
+        }else{
+            return text.substring(0,11) + '...';
+        }
+     }
+    
+
     return(
         <View style={styles.container}>
             <TouchableOpacity
@@ -20,15 +35,15 @@ export default function  Movie({ image }){
                     source={image}
                 />
 
-                <Text>
-                    Duno
+                <Text style={styles.title}>
+                    {textLimit(title)}
                 </Text>
 
                 <RatingBar
                     votes={8} 
                     size={15}
                 />
-                </TouchableOpacity>
+            </TouchableOpacity>
         </View>
     );
 }
@@ -44,6 +59,11 @@ const styles = StyleSheet.create({
         borderRadius: 12,
         marginTop: 20,
         alignSelf: 'center',
-        
     },
+    title : {
+        fontSize: 15,
+        fontFamily: fonts.text,
+        color: colors.white,
+        marginTop: 10,
+    }     
 });

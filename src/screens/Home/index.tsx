@@ -24,7 +24,7 @@ export default function Home(){
 
     async function getMoviesRecent(){
         const { data } = await api
-        .get(`now_playing?api_key=${key}&language=pt-BR&page=${page}`);
+        .get(`movie/now_playing?api_key=${key}&language=pt-BR&page=${page}`);
 
         if(!data){
             return setLoading(true);
@@ -36,7 +36,7 @@ export default function Home(){
 
     async function getMoviesLatest(){
         const { data } = await api
-        .get(`upcoming?api_key=${key}&language=pt-BR&page=${page}`);
+        .get(`movie/upcoming?api_key=${key}&language=pt-BR&page=${page}`);
 
         if(!data){
             return setLoading(true);

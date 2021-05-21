@@ -11,14 +11,15 @@ import {
 } from 'react-native';
 import { useRoute, useNavigation } from '@react-navigation/native'
 
+import api, { key, urlImage, language } from '../../services/api';
+import { MoviesProps, GenresProps } from '../../libs/storage';
+
 import Header from '../../components/Header';
+import Loading from '../../components/Loading';
+import GenresList from '../../components/GenresList';
 import Movie from '../../components/Movie';
 
-
 import colors from '../../styles/colors';
-import api, { key, urlImage } from '../../services/api';
-import { MoviesProps } from '../../libs/storage';
-import Loading from '../../components/Loading';
 
 
 interface Params {
@@ -33,8 +34,10 @@ export default function ViewAll(){
     const navigation = useNavigation();
 
     const [movies,setMovies] = useState<MoviesProps[]>([])
+    const [genres, setGenres] = useState<GenresProps[]>([]);
     const [page, setPage] = useState<number>(1);
     const [loading, setLoading] = useState<boolean>(true);
+    const [requestTypeApi, setRequestTypeApi] = useState<string>(); 
 
     
     function handleSelectMovie(movie: MoviesProps){
@@ -43,48 +46,73 @@ export default function ViewAll(){
 
     async function getMovies(){
         const { data } = await api
-        .get(`${moviesRequest}?api_key=${key}&language=pt-BR&page=${page}`);
+        .get(`movie/${moviesRequest}?api_key=${key}&language=${language}&page=${page}`);
 
         if(!data){
             return setLoading(true);
         }
 
         setMovies(data.results);
-        setLoading(false);
+        setRequestTypeApi(moviesRequest);
     }
 
+    async function getGenres(){
+        const { data } = await api
+        .get(`genre/movie/list?api_key=${key}&language=${language}`)
+    
+        if(!data){
+            return setLoading(true);
+        }
+
+        setGenres(data.genres);
+    }
 
     useEffect(() => {
+        if(requestTypeApi !== moviesRequest){
+            setLoading(true);
+        }
+        getGenres();
         getMovies();
+
+        setLoading(false);
+
     },[moviesRequest])
-
-    if(loading){
-       return <Loading/>
-    }
-
 
     return(
         <SafeAreaView style={styles.container}>
             <Header/>
-            
-            <FlatList
-                data={movies}
-                keyExtractor={ (item) => String(item.id)}
-                renderItem={({item})=> {
-                    return(
-                        <TouchableOpacity 
-                           onPress={() => handleSelectMovie(item)}
-                        >
-                            <Movie 
-                                title={item.title}
-                                image={{uri: urlImage + item.backdrop_path}}
-                            />
-                        </TouchableOpacity>
-                    );
-                }}
-                numColumns={3}
-                showsVerticalScrollIndicator={false}            
+
+            <GenresList
+                data={genres}
+                
             />
+
+            {loading ? 
+
+                <Loading/> 
+                : 
+                <FlatList
+                    data={movies}
+                    keyExtractor={ (item) => String(item.id)}
+                    renderItem={({item})=> {
+                        return(
+                            <TouchableOpacity 
+                            onPress={() => handleSelectMovie(item)}
+                            >
+                                <Movie 
+                                    title={item.title}
+                                    image={{uri: urlImage + item.backdrop_path}}
+                                />
+                            </TouchableOpacity>
+                        );
+                    }}
+                    numColumns={3}
+                    showsVerticalScrollIndicator={false}            
+                />
+
+            
+            }
+            
         </SafeAreaView>
     );
 }

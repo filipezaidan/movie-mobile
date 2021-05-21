@@ -6,3 +6,8 @@ export interface MoviesProps{
     vote_average: number;
     backdrop_path: string;
 }
+
+export interface GenresProps{
+    id: number;
+    name: string;
+}

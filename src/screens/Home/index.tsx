@@ -15,6 +15,7 @@ import MovieCardSegundary from '../../components/MovieCardSegundary';
 import Loading from '../../components/Loading';
 
 import colors from '../../styles/colors';
+import { set } from 'react-native-reanimated';
 
 export default function Home(){
     const [moviesRecent,setMoviesRecent] = useState<MoviesProps[]>([]);
@@ -31,7 +32,6 @@ export default function Home(){
         }
 
         setMoviesRecent(data.results);
-        setLoading(false);
     }
 
     async function getMoviesLatest(){
@@ -41,18 +41,16 @@ export default function Home(){
         if(!data){
             return setLoading(true);
         }
-
         setMoviesLatest(data.results);
-        setLoading(false);
+        console.log(moviesLatest);
     }
 
 
 
     useEffect( () => {
-        
         getMoviesRecent();
         getMoviesLatest();
-
+        setLoading(false);
     },[])
 
 

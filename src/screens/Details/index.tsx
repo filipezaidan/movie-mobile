@@ -57,26 +57,24 @@ export default function Details(){
 
     async function handleGetMovieDetail(){
         const { data } = await api
-        .get(`${movie.id}?api_key=${key}&language=pt-BR`);
+        .get(`movie/${movie.id}?api_key=${key}&language=pt-BR`);
 
         if(!data){
             return setLoading(true);
         }
         
         setMovieDetail(data);
-        //setLoading(false);
     }
 
     async function handleGetMovieVideo(){
         const { data } = await api
-        .get(`${movie.id}/videos?api_key=${key}&language=pt-BR`);
+        .get(`movie/${movie.id}/videos?api_key=${key}&language=pt-BR`);
 
         if(!data){
             return setLoading(true);
         }
         
         setMovieVideo(data.results[0])
-        //setLoading(false);
     }
 
     function handleCloseModal(){

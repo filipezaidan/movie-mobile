@@ -21,10 +21,13 @@ export default function GenresList({ data } : Params){
                 data={data}
                 keyExtractor={(item) => String(item.id)}
                 renderItem={({ item }) => (
-                    <View style={styles.genres}>
-                        <Text style={styles.title}>
-                            {item.name}
-                        </Text>
+                    <View style={[
+                        styles.genres, 
+                        
+                        ]}>
+                            <Text style={styles.title}>
+                                {item.name}
+                            </Text>
                     </View>
                 )}
                 horizontal
@@ -50,6 +53,9 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         borderRadius: 12,
         padding: 10,
+    },
+    genreActive:{
+        backgroundColor: colors.yellow,
     },
     title:{
         textAlign: 'center',

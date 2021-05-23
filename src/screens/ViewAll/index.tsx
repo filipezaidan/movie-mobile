@@ -37,11 +37,26 @@ export default function ViewAll(){
     const [genres, setGenres] = useState<GenresProps[]>([]);
     const [page, setPage] = useState<number>(1);
     const [loading, setLoading] = useState<boolean>(true);
-    const [requestTypeApi, setRequestTypeApi] = useState<string>(); 
 
-    
     function handleSelectMovie(movie: MoviesProps){
         navigation.navigate('Details', { movie });
+    }
+
+    async function getGenres(){
+        const { data } = await api
+        .get(`genre/movie/list?api_key=${key}&language=${language}`)
+        
+        if(!data){
+            return setLoading(true);
+        }
+        
+        setGenres([
+            {
+                id: 1,
+                name: 'Todos'
+            }, 
+            ...data.genres
+        ]);
     }
 
     async function getMovies(){
@@ -51,31 +66,15 @@ export default function ViewAll(){
         if(!data){
             return setLoading(true);
         }
-
         setMovies(data.results);
-        setRequestTypeApi(moviesRequest);
-    }
-
-    async function getGenres(){
-        const { data } = await api
-        .get(`genre/movie/list?api_key=${key}&language=${language}`)
-    
-        if(!data){
-            return setLoading(true);
-        }
-
-        setGenres(data.genres);
+        
+        setLoading(false);
     }
 
     useEffect(() => {
-        if(requestTypeApi !== moviesRequest){
-            setLoading(true);
-        }
+        setLoading(true);
         getGenres();
         getMovies();
-
-        setLoading(false);
-
     },[moviesRequest])
 
     return(
@@ -83,36 +82,32 @@ export default function ViewAll(){
             <Header/>
 
             <GenresList
-                data={genres}
-                
+                data={genres}                
             />
 
-            {loading ? 
-
-                <Loading/> 
-                : 
-                <FlatList
-                    data={movies}
-                    keyExtractor={ (item) => String(item.id)}
-                    renderItem={({item})=> {
-                        return(
+            {
+                loading ? 
+                    <Loading/> 
+                    :
+                    <FlatList
+                        data={movies}
+                        keyExtractor={ (item) => String(item.id)}
+                        renderItem={({item}) => (
                             <TouchableOpacity 
                             onPress={() => handleSelectMovie(item)}
                             >
                                 <Movie 
                                     title={item.title}
                                     image={{uri: urlImage + item.backdrop_path}}
+                                    votes={item.vote_average}
                                 />
                             </TouchableOpacity>
-                        );
-                    }}
-                    numColumns={3}
-                    showsVerticalScrollIndicator={false}            
-                />
-
-            
+                            )
+                        }
+                        numColumns={3}
+                        showsVerticalScrollIndicator={false}            
+                        />
             }
-            
         </SafeAreaView>
     );
 }
@@ -123,6 +118,5 @@ const styles = StyleSheet.create({
         backgroundColor: colors.background,
         marginTop: Platform.OS === 'ios' ? 0 : 30,
         paddingVertical: 30,
-        
     }
 });

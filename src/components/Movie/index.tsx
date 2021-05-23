@@ -1,8 +1,7 @@
-import React, { useState, useEffect} from 'react';
+import React from 'react';
 import {
     View,
     Text,
-    TouchableOpacity,
     StyleSheet,
     Image,
 } from 'react-native';
@@ -10,8 +9,13 @@ import colors from '../../styles/colors';
 import fonts from '../../styles/fonts';
 import RatingBar from '../RatingBar';
 
+interface Params{
+    title: string;
+    image: object;
+    votes: number;
+}
 
-export default function  Movie({ title, image,  }){
+export default function  Movie({ title, image, votes } : Params){
 
     function textLimit(text: string){
         if(text.length <= 14){
@@ -34,7 +38,7 @@ export default function  Movie({ title, image,  }){
                 </Text>
 
                 <RatingBar
-                    votes={8} 
+                    votes={votes} 
                     size={15}
                 />
         </View>

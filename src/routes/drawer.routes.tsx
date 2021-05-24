@@ -4,6 +4,7 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 import Home from '../screens/Home';
 import Details from '../screens/Details';
 import ViewAll from '../screens/ViewAll';
+import Profile from '../screens/Profile';
 
 const DrawerRoutes = createDrawerNavigator();
 
@@ -23,6 +24,11 @@ export default function Drawer(){
             <DrawerRoutes.Screen
                 name='ViewAll'
                 component={ViewAll}
+            />
+
+            <DrawerRoutes.Screen
+                name='Profile'
+                component={Profile}
             />
 
         </DrawerRoutes.Navigator>

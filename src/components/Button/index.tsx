@@ -7,10 +7,10 @@ import {
 
 import fonts from '../../styles/fonts';
 
-export default function Button(){
+export default function Button({title}){
     return(
         <TouchableOpacity style={styles.container}>
-            <Text style={styles.title}>Buy Ticket</Text>
+            <Text style={styles.title}>{title}</Text>
         </TouchableOpacity>     
     );
 }

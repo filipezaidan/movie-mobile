@@ -1,18 +1,18 @@
-import { useNavigation } from '@react-navigation/core';
 import React from 'react';
 import {
     View,
     Text,
-    Image,
-    TouchableOpacity,
     StyleSheet,
     SafeAreaView,
     Platform,
-    Touchable,
+    Image,
+    TouchableOpacity,
 } from 'react-native';
-import { } from 'react-native-safe-area-context';
+import { useNavigation } from '@react-navigation/native';
+
 import BackButton from '../../components/BackButton';
 import Button from '../../components/Button';
+
 import colors from '../../styles/colors';
 import fonts from '../../styles/fonts';
 
@@ -25,15 +25,28 @@ export default function Profile(){
 
             <View style={styles.content}>
                 <View>
-                    <Image
-                        style={styles.image}
-                        source={require('../../assets/profile.jpg')}
-                    />
-                    <Text style={styles.name}> 
-                        Filipe Zaidan
-                    </Text>
-                </View>
+                    <View style={styles.imageContainer}>
 
+                        <TouchableOpacity style={styles.imageContainer}>
+                        
+                            <Image
+                                style={styles.image}
+                                source={require('../../assets/profile.jpg')}
+                            />
+                            <View style={styles.editImage}>
+                                <Text style={{color: colors.white, fontSize: 26, fontFamily: fonts.text }}>Editar</Text>
+
+                            </View>
+                        </TouchableOpacity> 
+                        
+                    </View>
+                   
+                    <View style={styles.name}>
+                        <Text style={styles.textName}> 
+                            Filipe Zaidan
+                        </Text>
+                    </View>
+                </View>
 
                 <Button
                     title={'Salvar'}
@@ -53,20 +66,36 @@ const styles = StyleSheet.create({
     content:{
         marginVertical: '25%',
         alignItems: 'center',
-        justifyContent:    'center',
+        justifyContent: 'center',
+    },
+    imageContainer: {
+      
     },
     image:{
         height: 200,
         width: 200,
         borderRadius: 100,
-        marginBottom: 20
+    },
+    editImage:{
+        position: 'absolute',
+        backgroundColor: 'rgba(0,0,1,0.39)',
+        top: 0,
+        bottom: 0,
+        left: 0,
+        right: 0,
+        borderRadius: 100,
+        alignItems: 'center',
+        justifyContent: 'center'
     },
     name: {
-        fontSize: 28,
-        color: colors.white,
-        fontFamily: fonts.text,
+        marginTop: 25,
+        alignItems: 'center',
+        justifyContent: 'center',
         marginBottom: '10%'
     },
-
-
+    textName:{
+        fontSize: 28,
+        color: colors.white,
+        fontFamily: fonts.complement,
+    },
 });

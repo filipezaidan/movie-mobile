@@ -158,7 +158,7 @@ export default function Details(){
                             </Text>
                         </ScrollView>
 
-                        <Button/>
+                        <Button title={'Comprar'}/>
                     </View>
                 </View>
             </ImageBackground>

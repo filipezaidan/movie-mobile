@@ -28,7 +28,6 @@ export default function BackButton({ onPress } : backButtonProps){
 
 const styles = StyleSheet.create({
     container: {
-        marginTop: 30,
         paddingHorizontal: 20
     }
 });

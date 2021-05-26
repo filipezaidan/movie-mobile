@@ -108,9 +108,11 @@ export default function Details(){
                 blurRadius={2}
             >
                 <View style={styles.movieContainer}>
-                    <BackButton 
-                        onPress={() => navigation.goBack()}
-                    />
+                    <View style={styles.backButton}>
+                        <BackButton 
+                            onPress={() => navigation.goBack()}
+                        />
+                    </View>
 
                     <View style={styles.movieInfoContainer}>
                             <View style={styles.playContainer}> 
@@ -186,6 +188,9 @@ const styles = StyleSheet.create({
     movieContainer: {
         flex: 1,
         backgroundColor: 'rgba(0,0,0,0.4)',
+    },
+    backButton: {
+        marginTop: 30,
     },
     movieInfoContainer:{
         flex: 1,

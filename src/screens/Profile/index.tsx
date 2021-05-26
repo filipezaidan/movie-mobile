@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
     View,
     Text,
@@ -11,47 +11,70 @@ import {
 import { useNavigation } from '@react-navigation/native';
 
 import BackButton from '../../components/BackButton';
-import Button from '../../components/Button';
 
 import colors from '../../styles/colors';
 import fonts from '../../styles/fonts';
+import Input from '../../components/Input';
 
 export default function Profile(){
     const navigation = useNavigation();
+    const [name, setName ] = useState('Filipe Zaidan');
+    const [email, setEmail ] = useState('felipezaidan10@gmail.com');
 
     return(
         <SafeAreaView style={styles.container}>
-            <BackButton  onPress={() => navigation.goBack()}/>
+            
+            <View style={styles.profileContainer}>
 
-            <View style={styles.content}>
-                <View>
-                    <View style={styles.imageContainer}>
+                <View style={styles.header}>
+                    <BackButton  onPress={() => navigation.goBack()}/>
 
-                        <TouchableOpacity style={styles.imageContainer}>
-                        
-                            <Image
-                                style={styles.image}
-                                source={require('../../assets/profile.jpg')}
-                            />
-                            <View style={styles.editImage}>
-                                <Text style={{color: colors.white, fontSize: 26, fontFamily: fonts.text }}>Editar</Text>
-
-                            </View>
-                        </TouchableOpacity> 
-                        
-                    </View>
-                   
-                    <View style={styles.name}>
-                        <Text style={styles.textName}> 
-                            Filipe Zaidan
+                    <Text style={[styles.headerText, {fontFamily: fonts.complement}]}>
+                        Editar Perfil
+                    </Text>
+                    
+                    <TouchableOpacity>
+                        <Text style={[styles.headerText, {fontFamily: fonts.text}]}>
+                            Salvar
                         </Text>
-                    </View>
+                    </TouchableOpacity>
                 </View>
 
-                <Button
-                    title={'Salvar'}
-                />
+                <View style={styles.content}>
+                    <View>              
+                            <View style={styles.imageContainer}>
+
+                                <TouchableOpacity style={styles.imageContainer}>
+                                
+                                    <Image
+                                        style={styles.image}
+                                        source={require('../../assets/profile.jpg')}
+                                    />
+                                    <View style={styles.editImage}>
+                                        <Text style={{color: colors.white, fontSize: 26, fontFamily: fonts.text }}>Editar</Text>
+
+                                    </View>
+                                </TouchableOpacity> 
+                                
+                            </View>              
+                    </View>             
+                </View>
             </View>
+
+            <View style={styles.infoContainer}>
+                <View style={styles.info}> 
+                    <Input
+                        data={name}
+                        title='Name'
+                    />
+                    <Input
+                        data={email}
+                        title='Email'
+                    />
+                </View>
+            </View>
+
+            
 
         </SafeAreaView>
     );
@@ -63,8 +86,30 @@ const styles = StyleSheet.create({
         backgroundColor: colors.background,
         marginTop: Platform.OS === 'ios' ? 0 : 30,
     },
+    profileContainer:{
+        flex: 1, 
+    },
+    header:{
+        marginTop: 20,
+        flexDirection:'row',
+        alignItems:'center',
+        justifyContent:'space-between',
+        marginRight:20
+    },
+    headerText:{
+        color: 'white', 
+        fontSize: 18,  
+        //fontFamily: fonts.complement, 
+    },
+    infoContainer:{
+        flex: 1,
+        backgroundColor: 'rgba(255,255,255,0.9)',
+    },
+    info:{
+        padding: 30,
+    },
     content:{
-        marginVertical: '25%',
+        marginTop: 40,
         alignItems: 'center',
         justifyContent: 'center',
     },

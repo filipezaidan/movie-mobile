@@ -99,7 +99,6 @@ const styles = StyleSheet.create({
     headerText:{
         color: 'white', 
         fontSize: 18,  
-        //fontFamily: fonts.complement, 
     },
     infoContainer:{
         flex: 1,

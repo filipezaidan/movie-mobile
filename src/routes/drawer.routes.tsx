@@ -5,12 +5,18 @@ import Home from '../screens/Home';
 import Details from '../screens/Details';
 import ViewAll from '../screens/ViewAll';
 import Profile from '../screens/Profile';
+import CustomDrawer from '../components/CustomDrawer';
+
+import colors from '../styles/colors';
 
 const DrawerRoutes = createDrawerNavigator();
 
 export default function Drawer(){
     return(
-        <DrawerRoutes.Navigator>
+        <DrawerRoutes.Navigator
+            drawerContent={ (props) => <CustomDrawer {...props}/>}
+            drawerStyle={{backgroundColor: colors.background}}
+        >
             <DrawerRoutes.Screen
                 name='Home'
                 component={Home}

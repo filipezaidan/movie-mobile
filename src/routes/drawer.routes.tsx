@@ -16,26 +16,54 @@ export default function Drawer(){
         <DrawerRoutes.Navigator
             drawerContent={ (props) => <CustomDrawer {...props}/>}
             drawerStyle={{backgroundColor: colors.background}}
+            drawerContentOptions={{
+               labelStyle:{ fontWeight: 'bold' },
+                activeTintColor: "#fff",
+               inactiveTintColor: "#DDD",
+                activeBackgroundColor: '#181e29',
+                inactiveBackgroundColor: '#000',
+               itemStyle: { 
+                   marginVertical: 5, 
+                   width: '95%',
+
+                }
+
+            }}
         >
             <DrawerRoutes.Screen
                 name='Home'
                 component={Home}
-            />
+                options={{
+                    drawerLabel:"Inicio"
+                }}
 
-            <DrawerRoutes.Screen
-                name='Details'
-                component={Details}
-            />
-
-            <DrawerRoutes.Screen
-                name='ViewAll'
-                component={ViewAll}
             />
 
             <DrawerRoutes.Screen
                 name='Profile'
                 component={Profile}
+                options={{
+                    drawerLabel:"Perfil"
+                }}
+                
             />
+            <DrawerRoutes.Screen
+                name='Details'
+                component={Details}
+                options={{
+                    drawerLabel:"Detalhes"
+                }}
+            />
+
+            <DrawerRoutes.Screen
+                name='ViewAll'
+                component={ViewAll}
+                options={{
+                    drawerLabel:   'Ver todos'
+                    
+                }}
+            />
+
 
         </DrawerRoutes.Navigator>
     );

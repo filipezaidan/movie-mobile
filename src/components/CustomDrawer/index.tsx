@@ -15,8 +15,8 @@ import { color } from 'react-native-reanimated';
 
 export default function CustomDrawer(props){
     return(
-        <DrawerContentScrollView style={{flex: 1, height: 50}} {...props}> 
-            <SafeAreaView style={styles.container}>
+        <DrawerContentScrollView {...props}> 
+            <View style={styles.container}>
                 
                 <View style={styles.contentProfile}>
                         <View style={styles.profile}>
@@ -26,30 +26,28 @@ export default function CustomDrawer(props){
                             />
 
                             <View style={styles.profileText}>
-                                <Text style={[styles.text,{ fontSize: 20, fontFamily: fonts.complement}]}>
+                                <Text style={[styles.text,{ fontSize: 17, fontFamily: fonts.complement}]}>
                                     Olá,
                                 </Text>
 
-                                <Text style={[styles.text,{ fontSize: 22, fontFamily: fonts.heading}]}>
+                                <Text style={[styles.text,{ fontSize: 19, fontFamily: fonts.heading}]}>
                                     Filipe Zaidan
                                 </Text>
                             </View>
                         </View>
                 </View>
 
-                <View style={{flex: 1, width: '100%', backgroundColor: 'white'}}>
+                <DrawerItemList {...props} />
 
-                </View>
-            </SafeAreaView>
+            </View>
         </DrawerContentScrollView>
     );
 }
 
 const styles = StyleSheet.create({
     container: {
-        //flex: 1,
-        //backgroundColor: colors.background,
-        //marginTop: Platform.OS === 'ios' ? 0 : 30,
+        alignItems: 'center',
+        justifyContent:'center',
     },
     contentProfile:{
         flex: 1,
